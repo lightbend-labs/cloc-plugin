@@ -1,0 +1,4 @@
+<plugin>
+  <name>cloc</name>
+  <classname>com.lightbend.tools.ClocPlugin</classname>
+</plugin>
