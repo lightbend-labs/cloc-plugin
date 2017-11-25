@@ -11,6 +11,7 @@ object ClocComponent {
   def countLines(files: Seq[File]): Int =
     sys.process.Process(command ++ files.map(_.toString))
       .lineStream
+      .toList  // run to completion, don't leave the process around
       .map(_.split(','))
       .collectFirst{case Array(_, "Scala", _, _, n) => n.toInt}
       .getOrElse(0)
