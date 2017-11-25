@@ -11,21 +11,16 @@ abstract class ClocComponent extends PluginComponent {
   val phaseName: String = "cloc"
   def newPhase(prev: nsc.Phase): StdPhase = new ClocPhase(prev)
 
-  class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
-    override def apply(unit: global.CompilationUnit): Unit = {
-      val file = unit.source.file.file
-      println(s"$file: ${countLines(file)}")
-    }
-    override def run() {
-      super.run()
-      // TODO something at the end?
-    }
-  }
+  val files = collection.mutable.Buffer.empty[File]
 
-  private def countLines(file: File): Int = {
-    val source = io.Source.fromFile(file)
-    try source.getLines.size
-    finally source.close()
+  class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
+    override def apply(unit: global.CompilationUnit): Unit =
+      files += unit.source.file.file
+    override def run() = {
+      super.run()
+      sys.process.Process("cloc" +: "--include-lang=Scala" +: files.map(_.toString)).!
+      ()
+    }
   }
 
 }

@@ -14,7 +14,6 @@ class ClocPlugin(val global: Global) extends Plugin {
   } with ClocComponent {
     override val runsAfter = List("parser")
     override val runsRightAfter = Some("parser")
-    override val terminal = true
   }
 
   override val components = List[PluginComponent](component)
