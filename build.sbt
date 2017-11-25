@@ -1,4 +1,5 @@
 organization := "com.lightbend"
+version := "0.0.1"
 name := "cloc-plugin"
 scalaVersion := "2.12.4"
 libraryDependencies ++= Seq(
