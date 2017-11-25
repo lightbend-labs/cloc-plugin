@@ -18,7 +18,8 @@ abstract class ClocComponent extends PluginComponent {
       files += unit.source.file.file
     override def run() = {
       super.run()
-      sys.process.Process("cloc" +: "--include-lang=Scala" +: files.map(_.toString)).!
+      if (!global.settings.isScaladoc)
+        sys.process.Process("cloc" +: "--include-lang=Scala" +: files.map(_.toString)).!
       ()
     }
   }
