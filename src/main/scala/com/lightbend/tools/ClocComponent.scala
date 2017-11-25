@@ -18,8 +18,19 @@ abstract class ClocComponent extends PluginComponent {
       files += unit.source.file.file
     override def run() = {
       super.run()
-      if (!global.settings.isScaladoc)
-        sys.process.Process("cloc" +: "--include-lang=Scala" +: files.map(_.toString)).!
+      if (!global.settings.isScaladoc) {
+        // careful here about only using flags supported by the available cloc version.
+        // as of November 2017, on the behemoths `sudo apt-get install cloc` got us
+        // version 1.60 which is pretty old
+        val command = Seq("cloc", "--progress-rate=0", "--quiet", "--csv")
+        val lineCount =
+          sys.process.Process(command ++ files.map(_.toString))
+            .lineStream
+            .map(_.split(','))
+            .collectFirst{case Array(_, "Scala", _, _, n) => n.toInt}
+            .getOrElse(0)
+        println(s"** COMMUNITY BUILD LINE COUNT: $lineCount")
+      }
       ()
     }
   }
