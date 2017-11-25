@@ -2,13 +2,10 @@ organization := "com.lightbend"
 version := "0.0.1"
 name := "cloc-plugin"
 scalaVersion := "2.12.4"
-libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided",
-  "org.scalatest" %% "scalatest" % "3.0.4" % "test"
-)
+libraryDependencies +=
+  "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided"
 scalacOptions ++= Seq(
-  "-encoding",
-  "utf-8",
+  "-encoding", "utf-8",
   "-deprecation",
   "-unchecked",
   "-feature",
@@ -20,11 +17,3 @@ scalacOptions ++= Seq(
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard"
 )
-// so we can invoke the Scala compiler at runtime without weird problems
-fork in Test := true
-
-val pluginPath = taskKey[File]("path to compiler plugin jar")
-enablePlugins(BuildInfoPlugin)
-buildInfoKeys := Seq[BuildInfoKey](pluginPath)
-pluginPath := (artifactPath in packageBin in Compile).value // TODO
-buildInfoPackage := "com.lightbend.tools"
