@@ -1,7 +1,6 @@
 package com.lightbend.tools
 
-import scala.tools.nsc,
-  nsc.Global,
+import scala.tools.nsc, nsc.Global,
   nsc.plugins.{Plugin, PluginComponent}
 
 class ClocPlugin(val global: Global) extends Plugin {
@@ -18,11 +17,8 @@ class ClocPlugin(val global: Global) extends Plugin {
 
   override val components = List[PluginComponent](component)
 
-  override val optionsHelp: Option[String] = Some(
-    """|TODO""".stripMargin)
-
   override def init(options: List[String], error: String => Unit) = {
-    assume(options.isEmpty)
+    require(options.isEmpty)
     true
   }
 
