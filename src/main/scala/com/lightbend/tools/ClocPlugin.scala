@@ -14,13 +14,12 @@ class ClocPlugin(val global: Global) extends Plugin {
   override val components = List(ClocComponent)
   object ClocComponent extends PluginComponent {
     override val global = ClocPlugin.this.global
-    override def description = "count lines of Scala code actually compiled"
     override val runsAfter = List("parser")
     override val runsRightAfter = Some("parser")
-    val phaseName: String = "cloc"
-    def newPhase(prev: nsc.Phase): StdPhase = new ClocPhase(prev)
-    val files = collection.mutable.Buffer.empty[File]
+    override val phaseName: String = "cloc"
+    override def newPhase(prev: nsc.Phase): StdPhase = new ClocPhase(prev)
     class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
+      private val files = collection.mutable.Buffer.empty[File]
       override def apply(unit: global.CompilationUnit): Unit =
         files += unit.source.file.file
       override def run() = {
