@@ -37,7 +37,7 @@ object ClocRunner {
   // careful, only use flags supported by cloc 1.60 (the version
   // `sudo apt-get install cloc` on the Jenkins workers gave us)
   val command = Seq("cloc", "--progress-rate=0", "--quiet", "--csv")
-  def countLines(files: Seq[File]): Int =
+  def countLines(files: Iterable[File]): Int =
     sys.process.Process(command ++ files.map(_.toString))
       .lineStream.toList  // run to completion, don't leave the process around
       .map(_.split(','))
