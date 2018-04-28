@@ -39,8 +39,8 @@ object ClocRunner {
   val command = Seq("cloc", "--progress-rate=0", "--quiet", "--csv")
   def countLines(files: Iterable[File]): Int =
     sys.process.Process(command ++ files.map(_.toString))
-      .lineStream.toList  // run to completion, don't leave the process around
-      .map(_.split(','))
+      .!!
+      .lines.map(_.split(','))
       .collectFirst{case Array(_, "Scala", _, _, n) => n.toInt}
       .getOrElse(0)
 }
