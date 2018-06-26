@@ -15,7 +15,7 @@ class ClocPlugin(val global: Global) extends Plugin {
   object ClocComponent extends PluginComponent {
     override val global = ClocPlugin.this.global
     override val runsAfter = List("parser")
-    override val runsRightAfter = Some("parser")
+    override val runsBefore = List("namer")
     override val phaseName: String = "cloc"
     override def newPhase(prev: nsc.Phase): StdPhase = new ClocPhase(prev)
     class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
