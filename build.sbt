@@ -2,7 +2,7 @@ organization := "com.lightbend"
 version := "0.0.1"
 name := "cloc-plugin"
 scalaVersion := crossScalaVersions.value.head
-crossScalaVersions := Seq("2.12.6", "2.13.0-pre-4ed9119")
+crossScalaVersions := Seq("2.12.6", "2.13.0-M4")
 libraryDependencies +=
   "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided"
 scalacOptions ++= Seq(
