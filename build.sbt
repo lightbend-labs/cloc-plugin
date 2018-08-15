@@ -17,3 +17,8 @@ scalacOptions ++= Seq(
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard"
 )
+
+scalacOptions in Test ++= Seq(
+  s"-Xplugin:${(packageBin in Compile).value}",
+  s"-Xplugin-require:cloc"
+)
