@@ -40,7 +40,10 @@ object ClocRunner {
   def countLines(files: Iterable[File]): Int =
     sys.process.Process(command ++ files.map(_.toString))
       .!!
-      .lines.map(_.split(','))
+      // JDK 11: work around https://github.com/scala/bug/issues/11125
+      // without incurring a deprecation warning. was: .lines
+      .linesWithSeparators.map(_.stripLineEnd)
+      .map(_.split(','))
       .collectFirst{case Array(_, "Scala", _, _, n) => n.toInt}
       .getOrElse(0)
 }
