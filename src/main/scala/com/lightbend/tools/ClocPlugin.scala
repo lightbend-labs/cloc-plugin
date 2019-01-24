@@ -21,11 +21,12 @@ class ClocPlugin(val global: Global) extends Plugin {
     class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
       private val files = collection.mutable.Buffer.empty[File]
       override def apply(unit: global.CompilationUnit): Unit =
-        files += unit.source.file.file
+        // careful, file.file might be null, e.g. in REPL
+        files ++= Option(unit.source.file.file)
       override def run() = {
         super.run()
         import ClocRunner.countLines
-        if (!global.settings.isScaladoc)
+        if (!global.settings.isScaladoc && files.nonEmpty)
           println(s"** COMMUNITY BUILD LINE COUNT: ${countLines(files)}")
         ()
       }
