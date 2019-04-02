@@ -50,7 +50,7 @@ object ClocRunner {
         .getOrElse(0)
     catch {
       case e: java.io.IOException =>
-        e.printStackTrace()
+        Console.err.println(e.getMessage)
         0
     }
 }
