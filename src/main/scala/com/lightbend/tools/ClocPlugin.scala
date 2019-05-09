@@ -20,9 +20,11 @@ class ClocPlugin(val global: Global) extends Plugin {
     override def newPhase(prev: nsc.Phase): StdPhase = new ClocPhase(prev)
     class ClocPhase(prev: nsc.Phase) extends StdPhase(prev) {
       private val files = collection.mutable.Buffer.empty[File]
-      override def apply(unit: global.CompilationUnit): Unit =
+      override def apply(unit: global.CompilationUnit): Unit = {
         // careful, file.file might be null, e.g. in REPL
         files ++= Option(unit.source.file.file)
+        ()
+      }
       override def run() = {
         super.run()
         import ClocRunner.countLines
