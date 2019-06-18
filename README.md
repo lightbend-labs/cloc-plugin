@@ -1,6 +1,9 @@
 some code I kludged together to get a count of lines of code compiled
 in the [Scala community build](https://github.com/scala/community-builds)
 
+rather than just a raw line count, it uses `cloc` to get a proper
+count that omits comments and blank lines
+
 context: https://github.com/scala/community-builds/issues/59
 
 also serves as a near-minimal example of a Scala compiler plugin for my
