@@ -1,18 +1,18 @@
+language: scala
+
 jdk:
 - openjdk8
 - openjdk11
 
-language: scala
 script:
   - sbt +publishLocal
 
-# cache stuff, hopefully shortening build times
 cache:
   directories:
-  - $HOME/.ivy2
   - $HOME/.sbt/boot
   - $HOME/.sbt/launchers
-
+  - $HOME/.ivy2
+  - $HOME/.cache/coursier
 before_cache:
   - rm -rf $HOME/.ivy2/local
   - find $HOME/.sbt -name "*.lock" | xargs rm
