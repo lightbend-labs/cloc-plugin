@@ -1,19 +1,11 @@
-language: scala
+version: ~> 1.0
+import: scala/scala-dev:travis/default.yml
 
-jdk:
-- openjdk8
-- openjdk11
+language: scala
+env:
+  - ADOPTOPENJDK=8
+  - ADOPTOPENJDK=11
+  - ADOPTOPENJDK=15
 
 script:
   - sbt +publishLocal
-
-cache:
-  directories:
-  - $HOME/.sbt/boot
-  - $HOME/.sbt/launchers
-  - $HOME/.ivy2
-  - $HOME/.cache/coursier
-before_cache:
-  - rm -rf $HOME/.ivy2/local
-  - find $HOME/.sbt -name "*.lock" | xargs rm
-  - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
