@@ -1,8 +1,6 @@
 package com.lightbend.tools
 
-import scala.tools.nsc, nsc.Global,
-  nsc.plugins.{Plugin, PluginComponent},
-  java.io.File
+import scala.tools.nsc, nsc.Global, nsc.plugins.{Plugin, PluginComponent}, java.io.File
 
 class ClocPlugin(val global: Global) extends Plugin {
   override val name = "cloc"
@@ -46,15 +44,14 @@ object ClocRunner {
   // `sudo apt-get install cloc` on the Jenkins workers gave us)
   val command = Seq("cloc", "--progress-rate=0", "--quiet", "--csv")
   def countLines(files: Iterable[File]): Int =
-    try
-      sys.process.Process(command ++ files.map(_.toString))
-        .!!
-        // JDK 11: work around https://github.com/scala/bug/issues/11125
-        // without incurring a deprecation warning. was: .lines
-        .linesWithSeparators.map(_.stripLineEnd)
-        .map(_.split(','))
-        .collectFirst{case Array(_, "Scala", _, _, n) => n.toInt}
-        .getOrElse(0)
+    try sys.process.Process(command ++ files.map(_.toString))
+      .!!
+      // JDK 11: work around https://github.com/scala/bug/issues/11125
+      // without incurring a deprecation warning. was: .lines
+      .linesWithSeparators.map(_.stripLineEnd)
+      .map(_.split(','))
+      .collectFirst { case Array(_, "Scala", _, _, n) => n.toInt }
+      .getOrElse(0)
     catch {
       case e: java.io.IOException =>
         Console.err.println(e.getMessage)

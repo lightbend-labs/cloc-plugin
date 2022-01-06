@@ -7,13 +7,6 @@ crossVersion := CrossVersion.patch
 libraryDependencies +=
   "org.scala-lang" % "scala-compiler" % scalaVersion.value % "provided"
 scalacOptions ++= Seq(
-  "-encoding", "utf-8",
-  "-deprecation",
-  "-unchecked",
-  "-feature",
-  "-Xlint",
-  "-Xfatal-warnings",
-  "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-value-discard"
+  "-encoding", "utf-8", "-deprecation", "-unchecked", "-feature", "-Xlint", "-Xfatal-warnings",
+  "-Ywarn-dead-code", "-Ywarn-numeric-widen", "-Ywarn-value-discard"
 )
