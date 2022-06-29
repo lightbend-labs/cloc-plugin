@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [8, 11, 16]
-        scala: [2.11.12, 2.12.16, 2.13.8]
+        java: [8, 11, 17]
+        scala: [2.11.x, 2.12.x, 2.13.x]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
