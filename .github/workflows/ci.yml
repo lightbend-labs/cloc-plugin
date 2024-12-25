@@ -19,5 +19,6 @@ jobs:
       with:
         distribution: adopt
         java-version: ${{matrix.java}}
+    - uses: sbt/setup-sbt@v1
     - name: Test
       run: sbt ++${{matrix.scala}} publishLocal
